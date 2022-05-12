@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+    <link rel="icon" href="./img/favicon.svg">
+
+    <title>Raumplan</title>
+
+    <!-- less css -->
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less@4.1.1"></script>
+
+
+    <!-- jquery -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="./scripts/jqueryDevelopment.js"></script>
+
+    <!-- todo use this one on release -->
+    <!-- <script src="./scripts/jquery.js"></script> todo use this one on release -->
+
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+
+    <!-- js -->
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/search.js"></script>
+    <script src="./scripts/popup.js"></script>
+    <script src="./scripts/gradient.js"></script>
+
+</head>
+
+<body>
+
+    <div id="header">
+        <img src="./img/logo.png" alt="Logo">
+        <div class="nav">
+            <button id="E1" class="navElem">Headquarter 1. OG</button>
+            <button id="E2" class="navElem">Headquarter 2. OG</button>
+            <button id="E3" class="navElem">Luisenforum 3. OG</button>
+            <button id="E4" class="navElem">Luisenforum 5. OG</button>
+            <button id="E5" class="navElem">Berglandschaft</button>
+            <button id="E6" class="navElem">Surfers Beach</button>
+            <button id="E7" class="navElem">Tower</button>
+            <button id="E8" class="navElem">Wohnung</button>
+        </div>
+        <div id="stayer"></div>
+    </div>
+
+    <div id="main">
+        <img src="./img/404.png" alt="Raumplan">
+        <!-- <div class="table"></div> -->
+    </div>
+
+    <div id="AddTableContainer" title="Tisch hinzufügen">
+        <button id="AddTableButton">+</button>
+    </div>
+
+    <div id="searchContainer" title="Suche (Ctrl + f)">
+        <input type="text">
+        <img src="./img/search.png" alt="search icon">
+        <div class="break">
+        </div>
+        <div id="results">
+        </div>
+    </div>
+
+
+
+    <div id="feedbackContainer" title="Feedback">
+        <a href="./feedback.html">
+            <img src="./img/feedback.svg" alt="feedback icon (speech bubble)">
+        </a>
+    </div>
+
+
+    <div id="preview">
+        <h2 class="names">Torsten Groß, David Beyer</h2>
+        <p class="tableNum">Tischnummer: <span></span></p>
+        <p class="users">Kürzel: <span></span></p>
+        <p class="teams">Teams: <span></span></p>
+    </div>
+
+    <div id="footer">
+        <code>
+            <pre>
+
+                ███╗   ███╗ █████╗ ██████╗ ███████╗    ██████╗ ██╗   ██╗    ███╗   ██╗██╗██╗     ███████╗       ██╗       ██████╗  █████╗ ██╗   ██╗██╗██████╗     ██╗    ██████╗  ██████╗ ██████╗ ██████╗ 
+                ████╗ ████║██╔══██╗██╔══██╗██╔════╝    ██╔══██╗╚██╗ ██╔╝    ████╗  ██║██║██║     ██╔════╝       ██║       ██╔══██╗██╔══██╗██║   ██║██║██╔══██╗    ██║    ╚════██╗██╔═████╗╚════██╗╚════██╗
+                ██╔████╔██║███████║██║  ██║█████╗      ██████╔╝ ╚████╔╝     ██╔██╗ ██║██║██║     ███████╗    ████████╗    ██║  ██║███████║██║   ██║██║██║  ██║    ██║     █████╔╝██║██╔██║ █████╔╝ █████╔╝
+                ██║╚██╔╝██║██╔══██║██║  ██║██╔══╝      ██╔══██╗  ╚██╔╝      ██║╚██╗██║██║██║     ╚════██║    ██╔═██╔═╝    ██║  ██║██╔══██║╚██╗ ██╔╝██║██║  ██║    ██║    ██╔═══╝ ████╔╝██║██╔═══╝ ██╔═══╝ 
+                ██║ ╚═╝ ██║██║  ██║██████╔╝███████╗    ██████╔╝   ██║       ██║ ╚████║██║███████╗███████║    ██████║      ██████╔╝██║  ██║ ╚████╔╝ ██║██████╔╝    ██║    ███████╗╚██████╔╝███████╗███████╗
+                 ╚═╝     ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝    ╚═════╝    ╚═╝       ╚═╝  ╚═══╝╚═╝╚══════╝╚══════╝    ╚═════╝      ╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═════╝     ╚═╝    ╚══════╝ ╚═════╝ ╚══════╝╚══════╝ 
+
+            </pre>
+        </code>
+        <a href="#">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </a>
+    </div>
+
+    <div id="footer2">
+        <p>Nils Goeke und David Beyer - 2022</p>
+    </div>
+
+    <div id="popup">
+        <div id="info"></div>
+    </div>
+
+
+    <div id="calendarContainer">
+        <div class="close">X</div>
+        <iframe src="" frameborder="0" id="calendar">Dein Browser unterstützt keine I-Frames :(</iframe>
+    </div>
+
+</body>
+
+</html>
