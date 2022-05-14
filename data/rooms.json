@@ -1,27 +1,5 @@
 [
   {
-    "name": "COOMING SOON!",
-    "location": 0,
-    "color": "darkgrey",
-    "fontSize": 14,
-    "link": "",
-    "x": 305,
-    "y": 553,
-    "w": 550,
-    "h": 375
-  },
-  {
-    "name": "COOMING SOON!",
-    "location": 1,
-    "color": "darkgrey",
-    "fontSize": 14,
-    "link": "",
-    "x": 535,
-    "y": 553,
-    "w": 550,
-    "h": 375
-  },
-  {
     "name": "Olymp",
     "location": 3,
     "color": "#37a7ed55",
@@ -30,7 +8,9 @@
     "x": 61,
     "y": 585,
     "w": 106,
-    "h": 143
+    "h": 143,
+    "title": "Olymp",
+    "id": 2
   },
   {
     "name": "Bibliothek",
@@ -41,7 +21,9 @@
     "x": 231,
     "y": 377,
     "w": 106,
-    "h": 114
+    "h": 114,
+    "title": "Bibliothek",
+    "id": 3
   },
   {
     "name": "Pink Horizon",
@@ -52,7 +34,9 @@
     "x": 232,
     "y": 495,
     "w": 104,
-    "h": 86
+    "h": 86,
+    "title": "Pink Horizon",
+    "id": 4
   },
   {
     "name": "Batcave",
@@ -63,7 +47,9 @@
     "x": 1627,
     "y": 496,
     "w": 56,
-    "h": 65
+    "h": 65,
+    "title": "Batcave",
+    "id": 5
   },
   {
     "name": "Tardis",
@@ -74,7 +60,9 @@
     "x": 467,
     "y": 149,
     "w": 67,
-    "h": 53
+    "h": 53,
+    "title": "Tardis",
+    "id": 6
   },
   {
     "name": "Toilette",
@@ -85,7 +73,9 @@
     "x": 381,
     "y": 256,
     "w": 83,
-    "h": 81
+    "h": 81,
+    "title": "Toilette",
+    "id": 7
   },
   {
     "name": "Küche",
@@ -96,7 +86,9 @@
     "x": 231,
     "y": 258,
     "w": 106,
-    "h": 114
+    "h": 114,
+    "title": "Küche",
+    "id": 8
   },
   {
     "name": "Lesezimmer",
@@ -107,7 +99,9 @@
     "x": 221,
     "y": 646,
     "w": 103,
-    "h": 129
+    "h": 129,
+    "title": "Lesezimmer",
+    "id": 9
   },
   {
     "name": "Wohnzimmer",
@@ -118,7 +112,9 @@
     "x": 328,
     "y": 624,
     "w": 100,
-    "h": 118
+    "h": 118,
+    "title": "Wohnzimmer",
+    "id": 10
   },
   {
     "name": "",
@@ -129,7 +125,9 @@
     "x": 328,
     "y": 742,
     "w": 78,
-    "h": 64
+    "h": 64,
+    "title": "Wohnzimmer",
+    "id": 11
   },
   {
     "name": "Arbeitszimmer",
@@ -140,7 +138,9 @@
     "x": 433,
     "y": 534,
     "w": 246,
-    "h": 240
+    "h": 240,
+    "title": "Arbeitszimmer",
+    "id": 12
   },
   {
     "name": "",
@@ -151,7 +151,9 @@
     "x": 411,
     "y": 774,
     "w": 122,
-    "h": 32
+    "h": 32,
+    "title": "Arbeitszimmer",
+    "id": 13
   },
   {
     "name": "",
@@ -162,7 +164,9 @@
     "x": 411,
     "y": 766,
     "w": 22,
-    "h": 8
+    "h": 8,
+    "title": "Arbeitszimmer",
+    "id": 14
   },
   {
     "name": "",
@@ -173,7 +177,9 @@
     "x": 558,
     "y": 511,
     "w": 92,
-    "h": 23
+    "h": 23,
+    "title": "Arbeitszimmer",
+    "id": 15
   },
   {
     "name": "Kinderzimmer",
@@ -184,7 +190,9 @@
     "x": 477,
     "y": 137,
     "w": 102,
-    "h": 145
+    "h": 145,
+    "title": "Kinderzimmer",
+    "id": 16
   },
   {
     "name": "Mountain Lodge",
@@ -195,7 +203,9 @@
     "x": 816,
     "y": 337,
     "w": 190,
-    "h": 158
+    "h": 158,
+    "title": "Mountain Lodge",
+    "id": 17
   },
   {
     "name": "",
@@ -206,7 +216,9 @@
     "x": 882,
     "y": 495,
     "w": 124,
-    "h": 53
+    "h": 53,
+    "title": "Mountain Lodge",
+    "id": 18
   },
   {
     "name": "Surfers Inn",
@@ -217,7 +229,9 @@
     "x": 827,
     "y": 337,
     "w": 179,
-    "h": 212
+    "h": 212,
+    "title": "Surfers Inn",
+    "id": 19
   },
   {
     "name": "Tower-Meeting",
@@ -228,6 +242,8 @@
     "x": 695,
     "y": 308,
     "w": 116,
-    "h": 208
+    "h": 208,
+    "title": "Tower-Meeting",
+    "id": 20
   }
 ]
