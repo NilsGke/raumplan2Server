@@ -6,3 +6,5 @@
 # misc
 temp.json
 .vscode
+
+.env
