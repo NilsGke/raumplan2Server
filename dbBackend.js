@@ -22,12 +22,7 @@ db.connect((err) => {
     console.log(`connected to: ${db.config.database} as ${db.config.user}`);
 });
 
-app.get("/ping", (req, res) => res.sendStatus("200"));
-
-// serve main page
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/page", "/index.html"));
-});
+app.get(["", "/ping"], (req, res) => res.sendStatus("200"));
 
 // serve locations data
 app.get("/locations", (req, res) => {
