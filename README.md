@@ -16,3 +16,12 @@ Standartmaßgig ist im `package.json`, das lokale backend als Standard festgeleg
 ## SQL Datenspeicherung
 
 Das [dbBackend](https://github.com/NilsGke/raumplan2Server/blob/master/dbBackend.js) benutzt als Speicherort eine lokal angelegte Datenbank.
+
+## Local setup
+
+```
+git clone https://github.com/NilsGke/raumplan2Server.git
+cd raumplan2server
+node .
+```
+*Dies ist nur der Server. [Hier](https://github.com/NilsGke/raumplan2) ist die Frontend App*
