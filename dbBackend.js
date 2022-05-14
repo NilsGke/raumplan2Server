@@ -394,9 +394,19 @@ app.post("/updateTable", (req, res) => {
   );
 });
 
+// route to handle feedback given by user (name, email and message)
+app.post("/submitFeedback", (req, res) => {
+  const { name, email, message } = req.body;
+
+  // TODO: send email to admin
+});
 function filterOutSemicolons(string) {
-  while (string.includes(";;")) string = string.replace(";;", ";"); // if (while removing a userId) there are two semicolons after each other, remove them
-  string = string.replace(/^;+/, "").replace(/;+$/, ""); // removes trailing and leading semicolons
+  // replace all double semicolons with single semicolons
+  string = string.replace(/;;/g, ";");
+  // remove all semicolons at the beginning of the string
+  if (string.endsWith(";")) string = string.substr(0, string.length - 1);
+  // remove all semicolons at the end of the string
+  if (string.startsWith(";")) string = string.substr(1);
   return string;
 }
 
