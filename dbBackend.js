@@ -58,21 +58,6 @@ app.get("/locations/*", (req, res) => {
   );
 });
 
-// serve user data
-app.get("/users", (req, res) => {
-  db.query("SELECT * FROM users", [], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
-
-    if (result.length > 0) {
-      res.send(result);
-    } else {
-      res.send({ message: "error while fetching database" });
-    }
-  });
-});
-
 // serve one specific user
 app.get("/users/*", (req, res) => {
   db.query(
@@ -121,45 +106,16 @@ app.get("/getUsersByName/*", (req, res) => {
   );
 });
 
-// serve tables data
-app.get("/tables", (req, res) => {
-  db.query("SELECT * FROM tables", [], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
-
-    if (result.length > 0) {
-      res.send(result);
-    } else {
-      res.send({ message: "error while fetching database" });
-    }
-  });
-});
-
 // serve tables for only one location
 app.get("/tables/*", (req, res) => {
   db.query(
     "SELECT * FROM tables WHERE location = ?",
     [decodeURI(req.url).split("/").at(-1).replace("%20", " ")],
     (err, result) => {
-      if (err && result) {
-        res.send({ err: err });
-      }
+      if (err && result) res.send({ err: err });
 
-      if (result != undefined && result.length > 0) {
-        res.send(result);
-      } else {
-        res.send([]);
-      }
-
-      // if (err) {
-      //   res.send({ err: err });
-      // }
-      // if (result.length > 0) {
-      //   res.send(result);
-      // } else {
-      //   res.send({ message: "error while fetching database" });
-      // }
+      if (result != undefined && result.length > 0) res.send(result);
+      else res.send([]);
     }
   );
 });
@@ -179,9 +135,8 @@ app.post("/addUserToTable", (req, res) => {
         "UPDATE tables SET user = ? WHERE id = ?",
         [newId, req.body.tableId],
         (err, results, fields) => {
-          if (!err) {
-            res.sendStatus(200);
-          } else {
+          if (!err) res.sendStatus(200);
+          else {
             console.log(err);
             res.send(err);
           }
@@ -206,9 +161,8 @@ app.post("/removeUserFromTable", (req, res) => {
         "UPDATE tables SET user = ? WHERE id = ?",
         [newId, req.body.tableId],
         (err, results, fields) => {
-          if (!err) {
-            res.sendStatus(200);
-          } else {
+          if (!err) res.sendStatus(200);
+          else {
             console.log(err);
             res.send(err);
           }
@@ -224,29 +178,13 @@ app.post("/moveTable", (req, res) => {
     "UPDATE tables SET x = ?, y = ?, r = ? WHERE id = ?",
     [req.body.x, req.body.y, req.body.r, req.body.id],
     (err, results, fields) => {
-      if (!err) {
-        res.sendStatus(200);
-      } else {
+      if (!err) res.sendStatus(200);
+      else {
         console.log(err);
         res.send(err);
       }
     }
   );
-});
-
-// serve teams
-app.get("/teams", (req, res) => {
-  db.query("SELECT * FROM teams", [], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
-
-    if (result.length > 0) {
-      res.send(result);
-    } else {
-      res.send({ message: "error while fetching database" });
-    }
-  });
 });
 
 // one team
@@ -255,64 +193,26 @@ app.get("/teams/*", (req, res) => {
     "SELECT * FROM teams WHERE name = ?",
     [decodeURI(req.url).split("/").at(-1).replace("%20", " ")],
     (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
+      if (err) res.send({ err: err });
 
-      if (result.length > 0) {
-        res.send(result);
-      } else {
-        res.sendStatus(404);
-      }
+      if (result.length > 0) res.send(result);
+      else res.sendStatus(404);
     }
   );
 });
-// serve team locations
-app.get("/teamlocations", (req, res) => {
-  db.query("SELECT * FROM teamlocations", [], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
 
-    if (result.length > 0) {
-      res.send(result);
-    } else {
-      res.send({ message: "error while fetching database" });
-    }
-  });
-});
 // serve team locations for one locations
 app.get("/teamlocations/*", (req, res) => {
   db.query(
     "SELECT * FROM teamlocations WHERE location = ?",
     [req.url.split("/").at(-1)],
     (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
+      if (err) res.send({ err: err });
 
-      if (result.length > 0) {
-        res.send(result);
-      } else {
-        res.send([]);
-      }
+      if (result.length > 0) res.send(result);
+      else res.send([]);
     }
   );
-});
-
-// serve team locations
-app.get("/rooms", (req, res) => {
-  db.query("SELECT * FROM rooms", [], (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
-
-    if (result.length > 0) {
-      res.send(result);
-    } else {
-      res.send({ message: "error while fetching database" });
-    }
-  });
 });
 
 // serve team locations for one location
@@ -321,15 +221,10 @@ app.get("/rooms/*", (req, res) => {
     "SELECT * FROM rooms WHERE location = ?",
     [req.url.split("/").at(-1)],
     (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
+      if (err) res.send({ err: err });
 
-      if (result.length > 0) {
-        res.send(result);
-      } else {
-        res.send([]);
-      }
+      if (result.length > 0) res.send(result);
+      else res.send([]);
     }
   );
 });
@@ -387,7 +282,7 @@ app.get("/search/*", (req, res) => {
     // rooms
     new Promise((resolve, reject) =>
       db.query(
-        `SELECT name, location, color FROM rooms WHERE name LIKE ${search}`,
+        `SELECT * FROM rooms WHERE name LIKE ${search}`,
         [search],
         (err, res, fields) => {
           results.rooms = res.length > 0 ? res : [];
@@ -407,9 +302,7 @@ app.get("/search/*", (req, res) => {
       )
     ),
   ])
-    .then(() => {
-      res.send(results);
-    })
+    .then(() => res.send(results))
     .catch((err) => console.log(err));
 });
 
@@ -418,38 +311,12 @@ app.get("/usersTables/*", (req, res) => {
   const search = mysql.escape(`%${decodeURI(req.url).split("/").at(-1)}%`);
 
   db.query(`SELECT * FROM tables WHERE user LIKE ${search}`, (err, result) => {
-    if (err) {
-      res.send({ err: err });
-    }
+    if (err) res.send({ err: err });
 
-    if (result.length > 0) {
-      res.send(result);
-    } else {
-      res.send([]);
-    }
+    if (result.length > 0) res.send(result);
+    else res.send([]);
   });
 });
-
-// // IDEA: remove this because i already have it implemented
-// // get all users in a specific team
-// app.get("/usersInTeam/*", (req, res) => {
-//   const search = mysql.escape(`%${decodeURI(req.url).split("/").at(-1)}%`);
-
-//   db.query(
-//     `SELECT * FROM users WHERE Organisationseinheiten Like ${search}`,
-//     (err, result) => {
-//       if (err) {
-//         res.send({ err: err });
-//       }
-
-//       if (result.length > 0) {
-//         res.send(result);
-//       } else {
-//         res.send([]);
-//       }
-//     }
-//   );
-// });
 
 // add table
 app.post("/addTable", (req, res) => {
@@ -470,6 +337,7 @@ app.post("/addTable", (req, res) => {
       ],
       (err, results, fields) => {
         if (!err) res.sendStatus(200);
+        else res.send({ err });
       }
     );
   });
@@ -492,11 +360,8 @@ app.post("/changeTableNumber", (req, res) => {
 // reomve table
 app.post("/removeTable", (req, res) => {
   db.query("DELETE FROM tables WHERE id = ?", [req.body.id], (err, result) => {
-    if (!err) {
-      res.sendStatus(200);
-    } else {
-      res.send({ message: err });
-    }
+    if (!err) res.sendStatus(200);
+    else res.send({ message: err });
   });
 });
 
@@ -523,26 +388,19 @@ app.post("/updateTable", (req, res) => {
       req.body.id,
     ],
     (err, result) => {
-      if (!err) {
-        res.sendStatus(200);
-      } else {
-        res.send({ message: err });
-      }
+      if (!err) res.sendStatus(200);
+      else res.send({ message: err });
     }
   );
 });
 
-// serve everything else as document
-app.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "/page", req.url));
-});
-
 function filterOutSemicolons(string) {
   while (string.includes(";;")) string = string.replace(";;", ";"); // if (while removing a userId) there are two semicolons after each other, remove them
-  string = string.replace(/^;+/, "").replace(/;+$/, ""); // removes trailing and leading whitespaces
+  string = string.replace(/^;+/, "").replace(/;+$/, ""); // removes trailing and leading semicolons
   return string;
 }
 
 app.listen(port, () => {
   console.log("running on port: " + port);
+  console.log("this server is using the local database to store data");
 });
