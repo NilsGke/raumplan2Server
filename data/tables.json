@@ -1494,15 +1494,6 @@
     "location": 6
   },
   {
-    "id": 167,
-    "tableNumber": "gke",
-    "x": 812,
-    "y": 438,
-    "r": 0,
-    "user": "566c0b9b-1b98-4d60-99fa-52a68c1767c1;00cb05e6-b3d7-417b-8d55-62e24a4508c4",
-    "location": 3
-  },
-  {
     "id": 168,
     "tableNumber": "all",
     "x": 479,
@@ -1523,8 +1514,8 @@
   {
     "id": 3,
     "tableNumber": "✨",
-    "x": 348,
-    "y": 459,
+    "x": 431,
+    "y": 345,
     "r": 0,
     "user": "db387902-640e-4b7a-8e69-04d34dc9252f;edd8c8cc-2c23-4f79-bdc8-9fcf7ca1a362;9615484c-f9e3-4448-8550-f4e199b41456",
     "location": 2
@@ -1545,15 +1536,6 @@
     "y": 303,
     "r": 0,
     "user": "a135c4f1-81f3-4eb5-a6ae-be839be37578",
-    "location": 2
-  },
-  {
-    "id": 169,
-    "tableNumber": "abc",
-    "x": 355,
-    "y": 484,
-    "r": 0,
-    "user": "dce1cdf9-2015-4c47-ad4a-25ea791ffdfc",
     "location": 2
   }
 ]
