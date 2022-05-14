@@ -3,7 +3,7 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const app = express();
-
+require("dotenv").config();
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
@@ -12,9 +12,17 @@ app.use(cors());
 const db = mysql.createConnection({
   user: "tischplanUser",
   host: "localhost",
-  password: 'raumplanpasswort!"§$',
+  password: process.env.DB_PASSWORD,
   database: "raumplan2",
 });
+
+db.connect((err) => {
+  if (err) throw err;
+  if (db.state === "connected")
+    console.log(`connected to: ${db.config.database} as ${db.config.user}`);
+});
+
+app.get("/ping", (req, res) => res.sendStatus("200"));
 
 // serve main page
 app.get("/", (req, res) => {
@@ -427,26 +435,26 @@ app.get("/usersTables/*", (req, res) => {
   });
 });
 
-// IDEA: remove this because i already have it implemented
-// get all users in a specific team
-app.get("/usersInTeam/*", (req, res) => {
-  const search = mysql.escape(`%${decodeURI(req.url).split("/").at(-1)}%`);
+// // IDEA: remove this because i already have it implemented
+// // get all users in a specific team
+// app.get("/usersInTeam/*", (req, res) => {
+//   const search = mysql.escape(`%${decodeURI(req.url).split("/").at(-1)}%`);
 
-  db.query(
-    `SELECT * FROM users WHERE Organisationseinheiten Like ${search}`,
-    (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
+//   db.query(
+//     `SELECT * FROM users WHERE Organisationseinheiten Like ${search}`,
+//     (err, result) => {
+//       if (err) {
+//         res.send({ err: err });
+//       }
 
-      if (result.length > 0) {
-        res.send(result);
-      } else {
-        res.send([]);
-      }
-    }
-  );
-});
+//       if (result.length > 0) {
+//         res.send(result);
+//       } else {
+//         res.send([]);
+//       }
+//     }
+//   );
+// });
 
 // add table
 app.post("/addTable", (req, res) => {
