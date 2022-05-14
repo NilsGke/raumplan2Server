@@ -22,6 +22,7 @@ Das [dbBackend](https://github.com/NilsGke/raumplan2Server/blob/master/dbBackend
 ```
 git clone https://github.com/NilsGke/raumplan2Server.git
 cd raumplan2server
+npm install
 node .
 ```
 *Dies ist nur der Server. [Hier](https://github.com/NilsGke/raumplan2) ist die Frontend App*
