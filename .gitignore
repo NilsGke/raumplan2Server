@@ -6,4 +6,7 @@
 # misc
 temp.json
 .vscode
+
+/legacy
+
 .env
