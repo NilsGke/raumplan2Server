@@ -11,7 +11,7 @@ Dies ist das Backend für den [Raumplan 2.0](https://github.com/NilsGke/raumplan
 ## Lokale Datenspeicherung
 
 Das [LocalBackend](https://github.com/NilsGke/raumplan2Server/blob/master/localBackend.js) benutzt lokale json Dateien um die Daten zu speichern.
-Standartmaßgig ist `im package.json`, das lokale backend als Standard festgelegt. Für den Release wird allerdings auf jeden fall die SQL Datenbank verwendet, da diese um einiges sicherer ist und nicht einfach durch falsche Benutzereingaben zerschossen werden kann.
+Standartmaßgig ist im `package.json`, das lokale backend als Standard festgelegt. Für den Release wird allerdings auf jeden fall die SQL Datenbank verwendet, da diese um einiges sicherer ist und nicht einfach durch falsche Benutzereingaben zerschossen werden kann.
 
 ## SQL Datenspeicherung
 
