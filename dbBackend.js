@@ -59,22 +59,25 @@ app.get("/locations/*", (req, res) => {
 });
 
 // serve one specific user
+app.get("/users", (req, res) => {
+  db.query("SELECT * FROM users", [], (err, result) => {
+    if (err) res.send({ err: err });
+
+    if (result.length > 0) res.send(result);
+    else res.send({ message: "error while fetching database" });
+  });
+});
+
+// serve one specific user
 app.get("/users/*", (req, res) => {
   db.query(
     "SELECT * FROM users WHERE id = ?",
     [decodeURI(req.url).split("/").at(-1).replace("%20", " ")],
     (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
+      if (err) res.send({ err: err });
 
-      if (result.length > 0) {
-        res.send(result);
-        //FIXME: TEST: REMOVE THIS! THIS IS ONLY FOR TESTING!!!!!
-        setTimeout(() => {}, 2000);
-      } else {
-        res.send({ message: "error while fetching database" });
-      }
+      if (result.length > 0) res.send(result);
+      else res.send({ message: "error while fetching database" });
     }
   );
 });
