@@ -399,6 +399,8 @@ app.post("/submitFeedback", (req, res) => {
   const { name, email, message } = req.body;
 
   // TODO: send email to admin
+
+  res.sendStatus(200);
 });
 function filterOutSemicolons(string) {
   // replace all double semicolons with single semicolons
