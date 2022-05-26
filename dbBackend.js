@@ -346,6 +346,31 @@ app.post("/addTable", (req, res) => {
   });
 });
 
+// add table
+app.post("/addTableWithValues", (req, res) => {
+  // get free table id
+  db.query("SELECT id FROM tables", [], (err, result) => {
+    let id = 0;
+    while (result.map((r) => r.id).includes(id)) id++;
+    db.query(
+      "INSERT INTO tables (id, tableNumber, x, y, r, user, location) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [
+        id,
+        req.body.table.tableNumber || "",
+        req.body.table.x || 0,
+        req.body.table.y || 0,
+        req.body.table.r || 0,
+        req.body.table.user,
+        req.body.table.location,
+      ],
+      (err, results, fields) => {
+        if (!err) res.sendStatus(200);
+        else res.send({ err });
+      }
+    );
+  });
+});
+
 // changeTableNumber table
 app.post("/changeTableNumber", (req, res) => {
   if (req.body.id && req.body.tableNumber)
