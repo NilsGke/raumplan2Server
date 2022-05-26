@@ -339,7 +339,7 @@ app.post("/addTable", (req, res) => {
         req.body.location,
       ],
       (err, results, fields) => {
-        if (!err) res.sendStatus(200);
+        if (!err) res.send({ newId: id });
         else res.send({ err });
       }
     );
