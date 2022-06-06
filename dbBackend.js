@@ -60,24 +60,101 @@ app.get("/locations/*", (req, res) => {
 
 // serve one specific user
 app.get("/users", (req, res) => {
-  db.query("SELECT * FROM users", [], (err, result) => {
-    if (err) res.send({ err: err });
-
-    if (result.length > 0) res.send(result);
-    else res.send({ message: "error while fetching database" });
+  db.query("SELECT * FROM users", [], (err, response) => {
+    if (err) res.send({ err });
+    db.query("SELECT * FROM userteammap", [], (err, userTeams) => {
+      if (err) res.send({ err });
+      db.query("SELECT * FROM teams", [], (err, teams) => {
+        let users = response.map((u) => ({ ...u, teams: [] }));
+        if (err) res.send({ err });
+        userTeams.forEach((userTeam) => {
+          const userIndex = users.map((u) => u.id).indexOf(userTeam.user);
+          users.at(userIndex).teams = [
+            ...users.at(userIndex).teams,
+            teams.find((t) => t.id === userTeam.team),
+          ];
+        });
+        res.send(users);
+      });
+    });
   });
 });
 
 // serve one specific user
 app.get("/users/*", (req, res) => {
+  const userId = decodeURI(req.url).split("/").at(-1);
+  db.query("SELECT * FROM users WHERE id = ?", [userId], (err, result) => {
+    if (err) res.send({ err: err });
+
+    // query to get teams the user is in
+    db.query(
+      "SELECT * FROM teams WHERE id IN (SELECT team FROM userteammap WHERE user = ?)",
+      [userId],
+      (err, teams) => {
+        if (err) res.send({ err: err });
+
+        if (result.length > 0) {
+          result[0].teams = teams;
+          res.send(result[0]);
+        } else {
+          res.send({ message: "error while fetching database" });
+        }
+      }
+    );
+  });
+});
+
+// get users on table
+app.get("/usersAtTable/*", (req, res) => {
+  res.send(400);
+  const tableId = decodeURI(req.url).split("/").at(-1);
   db.query(
-    "SELECT * FROM users WHERE id = ?",
-    [decodeURI(req.url).split("/").at(-1).replace("%20", " ")],
+    "SELECT * FROM users WHERE id IN (SELECT userId FROM tableusermap WHERE tableId = ?)",
+    [tableId],
     (err, result) => {
       if (err) res.send({ err: err });
 
-      if (result.length > 0) res.send(result);
-      else res.send({ message: "error while fetching database" });
+      Promise.all(
+        result.map(
+          (user) =>
+            new Promise((resolve, reject) => {
+              db.query(
+                "SELECT * FROM teams WHERE id IN (SELECT team FROM userteammap WHERE user = ?)",
+                [user.id],
+                (err, teams) => {
+                  if (err) reject(err);
+
+                  user.teams = teams;
+                  resolve(user);
+                }
+              );
+            })
+        )
+      ).then((users) => res.send(users));
+    }
+  );
+});
+
+// get tables users
+app.get("/tablesUsers", (req, res) => {
+  db.query(
+    "SELECT * FROM tableusermap",
+    [req.url.split("/").at(-1)],
+    (err, result) => {
+      if (err) res.send({ err: err });
+      res.send(result);
+    }
+  );
+});
+
+// get tables users
+app.get("/tablesUsers/*", (req, res) => {
+  db.query(
+    "SELECT userId FROM tableusermap WHERE tableId = ?",
+    [req.url.split("/").at(-1)],
+    (err, result) => {
+      if (err) res.send({ err: err });
+      res.send(result.map((user) => user.userId));
     }
   );
 });
@@ -125,52 +202,26 @@ app.get("/tables/*", (req, res) => {
 
 // add user to table
 app.post("/addUserToTable", (req, res) => {
-  // get old ids
   db.query(
-    "SELECT user FROM tables WHERE id = ?",
-    [req.body.tableId],
-    (err, response, fields) => {
-      const oldUserId = response[0].user;
-      let newId = oldUserId + ";" + req.body.userId;
-      newId = filterOutSemicolons(newId);
-      // set new userid
-      db.query(
-        "UPDATE tables SET user = ? WHERE id = ?",
-        [newId, req.body.tableId],
-        (err, results, fields) => {
-          if (!err) res.sendStatus(200);
-          else {
-            console.log(err);
-            res.send(err);
-          }
-        }
-      );
+    "INSERT INTO tableusermap (tableId, userId) VALUES (?, ?)",
+    [req.body.tableId, req.body.userId],
+    (err, result) => {
+      if (err) res.send({ err: err });
+
+      res.send(result);
     }
   );
 });
 
 // remove user from table
 app.post("/removeUserFromTable", (req, res) => {
-  // get old ids
   db.query(
-    "SELECT user FROM tables WHERE id = ?",
-    [req.body.tableId],
-    (err, response, fields) => {
-      const oldUserId = response[0].user;
-      let newId = oldUserId.replace(req.body.userId, "");
-      newId = filterOutSemicolons(newId);
-      // set new userid
-      db.query(
-        "UPDATE tables SET user = ? WHERE id = ?",
-        [newId, req.body.tableId],
-        (err, results, fields) => {
-          if (!err) res.sendStatus(200);
-          else {
-            console.log(err);
-            res.send(err);
-          }
-        }
-      );
+    "DELETE FROM tableusermap WHERE tableId = ? AND userId = ?",
+    [req.body.tableId, req.body.userId],
+    (err, result) => {
+      if (err) res.send({ err: err });
+
+      res.send(result);
     }
   );
 });
@@ -195,6 +246,20 @@ app.get("/teams/*", (req, res) => {
   db.query(
     "SELECT * FROM teams WHERE name = ?",
     [decodeURI(req.url).split("/").at(-1).replace("%20", " ")],
+    (err, result) => {
+      if (err) res.send({ err: err });
+
+      if (result.length > 0) res.send(result);
+      else res.sendStatus(404);
+    }
+  );
+});
+
+// users teams
+app.get("/usersTeams/*", (req, res) => {
+  db.query(
+    "SELECT * FROM teams WHERE id IN (SELECT team FROM userteammap WHERE user = ?)",
+    [req.url.split("/").at(-1)],
     (err, result) => {
       if (err) res.send({ err: err });
 
@@ -313,12 +378,15 @@ app.get("/search/*", (req, res) => {
 app.get("/usersTables/*", (req, res) => {
   const search = mysql.escape(`%${decodeURI(req.url).split("/").at(-1)}%`);
 
-  db.query(`SELECT * FROM tables WHERE user LIKE ${search}`, (err, result) => {
-    if (err) res.send({ err: err });
+  db.query(
+    `SELECT * FROM tables WHERE id IN (SELECT tableId FROM tableusermap WHERE userId LIKE ${search})`,
+    (err, result) => {
+      if (err) res.send({ err: err });
 
-    if (result.length > 0) res.send(result);
-    else res.send([]);
-  });
+      if (result.length > 0) res.send(result);
+      else res.send([]);
+    }
+  );
 });
 
 // add table
